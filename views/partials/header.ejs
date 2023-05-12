@@ -1,0 +1,38 @@
+<style>
+    nav{
+        height: 100vh;
+        width: 250px;
+        border-right: 1px solid rgb(224, 221, 221);
+        padding: 1rem;
+    }
+
+    #nav{
+        float: right;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .it{
+        font-size: 20px;
+        margin: .5rem;
+        text-decoration: none;
+        color: black;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+</style>
+
+<nav>
+    <ul id="nav">
+        <a href="/"><li class="it"><i class="fa fa-home" aria-hidden="true"></i> Home</li></a>
+        <a href="<% if(currentUser){ %> /<%=currentUser._id%> <%}else{%>/login<%}%>"><li class="it"><i class="fa fa-user" aria-hidden="true"></i> Profile</li></a>
+        <%if(currentUser){%>
+            <a href="/logout"><li class="it"><i class="fa fa-sign-out" aria-hidden="true"></i>Log Out</li></a>
+        <%}else{%>
+            <a href="/login"><li class="it"><i class="fa fa-sign-out" aria-hidden="true"></i>Log In</li></a>
+        <%}%>
+    </ul>
+</nav>

@@ -1,0 +1,115 @@
+<% layout('./layout/boilerplate') -%>
+
+<style>
+    .cont2{
+        width: 80vw;
+        border: 1px solid rgb(224, 221, 221);
+    }
+
+    .section{
+        width: 100%;
+        border: 1px solid rgb(224, 221, 221);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    #acount{
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+        border: 1px solid rgb(224, 221, 221);
+        margin-right: 1rem;
+    }
+
+    .arrow{
+        margin-right: 1.5rem;
+        font-size: 25px;
+    }
+
+    .det{
+        margin-top: 1rem;
+    }
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+
+    .tweet{
+        border: 1px solid rgb(224, 221, 221);
+        width: 100%;
+    }
+
+    .twe{
+        width: 100%;
+        border: 1px solid rgb(224, 221, 221);
+        display: flex;
+    }
+
+    #image{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        border: 1px solid rgb(224, 221, 221);
+        margin: 1rem 1rem 0 1rem;
+    }
+
+    .details{
+        margin-top: 1rem;
+    }
+
+    .head{
+        display: flex;
+    }
+
+    #like{
+        color: red;
+    }
+
+    #lik{
+        margin-right: 1rem;
+    }
+
+    #lik:hover{
+        background-color: rgb(226, 224, 224);
+        border-radius: 1rem;
+        padding: .3rem .5rem;
+    }
+</style>
+
+
+<div class="cont2">
+    <div class="section">
+        <a href="/"><i class="fa fa-arrow-left arrow" aria-hidden="true"></i></a>
+        
+        <div class="inner">
+                <%
+                    let src = '#';
+                    if(currentUser){
+                        src = currentUser.img;
+                    }
+                    else{
+                        src = '#'
+                    }
+                %>
+                <img src= <%= src %> alt="" id="acount">   
+        </div>
+        <div class="det">
+            <h4><%= currentUser.username %></h4>
+            <p><%= currentUser.tweets.length %> Tweets - <%= currentUser.followers.length %> Followers - <%= currentUser.following.length %> Following</p>
+        </div>
+    </div>
+    <div class="tweet">
+        <% for(const tweet of tweets) {%>
+            <div class="twe">
+                <img src='<%= currentUser.img %>' alt="" id="image">
+                <div class="details">
+                    <div class="head"><h5><%= currentUser.username %></h5><span> - <%= tweet.createdAt.getDate()%>/<%=tweet.createdAt.getMonth()%>/<%= tweet.createdAt.getFullYear() %></span></div>
+                    <p><%= tweet.message %></p>
+                    <p id="like"><i class="fa fa-heart-o" type="submit" id="lik" aria-hidden="true"></i> <%= tweet.likes.length %></p>
+                </div>
+            </div>
+        <%}%>
+    </div>
+</div>

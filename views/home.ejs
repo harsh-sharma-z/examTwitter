@@ -1,0 +1,163 @@
+<% layout('./layout/boilerplate') -%>
+
+<style>
+    .cont{
+        width: 80vw;
+        border: 1px solid rgb(224, 221, 221);
+    }
+
+    h4{
+        padding-left: 1rem;
+    }
+
+    .main-head{
+        border: 1px solid rgb(224, 221, 221);
+        width: 100%;
+        padding-top: 1rem;
+    }
+
+    .list{
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .item{
+        width: 40vw;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+    }
+
+    .active{
+        border-bottom: 3px solid rgb(135, 178, 235);
+    }
+
+    .inner{
+        width: 100%;
+        padding-left: 1rem;
+        display: flex;
+    }
+
+    #acount{
+        width: 50px;
+        height: 50px;
+        border: 1px solid rgb(224, 221, 221);
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+
+    #inp{
+        height: 40px;
+        width: 1000px;
+        border: none;
+        padding-left: 1rem;
+    }
+
+    #inp:active{
+        border: none;
+    }
+
+    .butt{
+    
+        border-radius: 1.5rem;
+    }
+    .main-head-2{
+        padding: 1rem 0;
+    }
+
+    .tweet{
+        border: 1px solid rgb(224, 221, 221);
+        width: 100%;
+    }
+
+    .twe{
+        width: 100%;
+        border: 1px solid rgb(224, 221, 221);
+        display: flex;
+    }
+
+    #image{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        border: 1px solid rgb(224, 221, 221);
+        margin: 1rem 1rem 0 1rem;
+    }
+
+    .details{
+        margin-top: 1rem;
+    }
+
+    .head{
+        display: flex;
+    }
+
+    #like{
+        color: red;
+    }
+
+    #lik{
+        margin-right: 1rem;
+    }
+
+    #lik:hover{
+        background-color: rgb(226, 224, 224);
+        border-radius: 1rem;
+        padding: .3rem .5rem;
+    }
+
+    a{
+        color: black;
+    }
+
+    
+
+
+</style>
+
+<div class="cont">
+    <div class="main-head">
+        <h4>Home</h4>
+        <ul class="list">
+            <a><li class="item active">Recent</li></a>
+            <a><li class="item">Following</li></a>
+        </ul>
+    </div>
+    <div class="main-head-2">
+        
+            <div class="inner">
+                <%
+                    let src = '#';
+                    if(currentUser){
+                        src = currentUser.img;
+                    }
+                    else{
+                        src = '#'
+                    }
+                %>
+                <img src= <%= src %> alt="" id="acount">
+            <form action="<% if(currentUser){ %> /new/<%=currentUser._id%> <%}else{%>/login<%}%>" method="post">
+                <input type="text" placeholder="What's happening?" id="inp" name="message">
+            
+                <button type="submit" class="btn btn-primary butt">Tweet</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="tweet">
+        <% for(const tweet of tweets) {%>
+            <div class="twe">
+                <img src='<%= tweet.author.img %>' alt="" id="image">
+                <div class="details">
+                    <a href="<% if(currentUser){ %> /<%=currentUser._id%> <%}else{%>/login<%}%>"><div class="head"><h5><%= tweet.author.username %></h5></a><span> - <%= tweet.createdAt.getDate()%>/<%=tweet.createdAt.getMonth()%>/<%= tweet.createdAt.getFullYear() %></span></div>
+                    <p><%= tweet.message %></p>
+                    <p id="like"><i class="fa fa-heart-o" type="submit" id="lik" aria-hidden="true"></i> <%= tweet.likes.length %></p>
+                </div>
+            </div>
+        <%}%>
+    </div>
+</div>
